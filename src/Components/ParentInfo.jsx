@@ -24,6 +24,7 @@ const ParentInfo = () => {
         workphone:"",
         email:""
       })
+      console.log(data,"data")
       const onChange=(e)=>{
         const {value,name}=e.target;
         setData((state)=>({...state,[name]:value}))

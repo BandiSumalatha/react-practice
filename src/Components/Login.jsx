@@ -16,6 +16,7 @@ const handleLogin=(e)=>{
   e.preventDefault()
  axios.post("http://localhost:4000/login",input)
 .then(res=>{
+  console.log(res,"data")
   if(res.data=="Valid User"){
     setInput({
       email:'',

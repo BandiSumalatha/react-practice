@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'
+ import React, { useEffect,useState } from 'react'
 import axios from 'axios';
 import {TableContainer,Table,TableHead,TableRow,Paper,TableBody} from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -41,8 +41,9 @@ const ViewparentInfo = () => {
   }));
   
   const [value,setvalues]=useState([])
+  console.log(value,"value")
 useEffect(()=>{
-result()
+ result()
 },[])
   const result=()=>{
     axios.get("http://localhost:4000/getuserdata")
@@ -77,7 +78,7 @@ const handleClose = () => setOpen(false);
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Edit edituserData={edituserData}/>
+          <Edit edituserData={edituserData} handleClose={handleClose} result={result}/>
         </Box>
         </Modal>
     <div>
@@ -106,6 +107,7 @@ const handleClose = () => setOpen(false);
         </TableHead>
         <TableBody>
         {value.map((row,index) => (
+          
             <StyledTableRow key={index}>
               <StyledTableCell component="th" scope="row">
                 {row.fname}

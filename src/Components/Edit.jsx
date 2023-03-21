@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const Edit = ({edituserData}) => {
+const Edit = ({edituserData,handleClose,result}) => {
       const [data,setData]=useState({
         fname:edituserData?.fname,
         lname:edituserData?.lname,
@@ -22,19 +22,23 @@ const Edit = ({edituserData}) => {
         phone:edituserData?.phone,
         cellphone:edituserData?.cellphone,
         workphone:edituserData?.workphone,
-        email:edituserData?.email
+        email:edituserData?.email,
+        id:edituserData?._id
       })
+      console.log(data,"data")
       const onChange=(e)=>{
         const {value,name}=e.target;
         setData((state)=>({...state,[name]:value}))
     }
     const onSubmit=async(e)=>{
       e.preventDefault();
-      const payload=data
-      const result=await axios.post("http://localhost:4000/userdata",payload)
-      console.log(result,"reslut")
-      if(result.status===200){
-        setData({
+      const id=data.id
+      const resp=await axios.put(`http://localhost:4000/edituser/${id}`,data)
+      console.log(resp,"reslut")
+      if(resp.status===200){
+        result()
+        handleClose()
+                setData({
           fname:"",
           lname:"",
           relation:"",
@@ -266,7 +270,7 @@ const Edit = ({edituserData}) => {
         <Grid item xs={2} style={{marginTop:"6px"}}>
         <Button 
         type='submit'
-        variant="contained" size="medium" style={{background:"blue"}} endIcon={<SaveIcon />} onSubmit={onSubmit}>
+        variant="contained" size="medium" style={{background:"blue"}} endIcon={<SaveIcon />} onClick={()=>onSubmit(data.id)}>
           EDIT
         </Button>
         </Grid>
